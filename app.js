@@ -1,27 +1,36 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const mongoose = require("mongoose");
-const { mongourl } = require("./secret.js");
-require("./models/user.js");
-const userRouter = require("./routes/auth.js");
+const mongoose = require('mongoose');
+const {mongourl} = require('./secret.js');
+require('./models/user.js')
+require('./models/address.js')
+const userRouter = require('./routes/auth.js');
+const addressRouter = require('./routes/address.js');
+
 
 const port = 5000;
 
+
+
+
 // connect mongodb:
-mongoose.connect(mongourl);
+mongoose.connect(mongourl) 
 
-//true case - established
-mongoose.connection.on("connected", () => {
-  console.log("connected to mongo");
-});
+// true case - established
+mongoose.connection.on("connected" , ()=>{console.log("connected to mongo")})
 
-//flase case - not established
-mongoose.connection.on("error", (err) => {
-  console.log("error connected to mongo", err);
-});
+
+// false case - not established
+mongoose.connection.on("error" , (err)=>{console.log("error connecting to mongo", err)})
+
+
+
 app.use(express.json());
-app.use("/api/auth", userRouter);
+
+app.use("/api/auth",userRouter);
+app.use("/api",addressRouter);
+
 
 app.listen(port, () => {
-  console.log(`Authy app listen at http://localhost:${port}`);
-});
+  console.log(`Authy app listening at http://localhost:${port}`)
+})
