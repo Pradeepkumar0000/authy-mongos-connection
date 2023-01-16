@@ -25,7 +25,8 @@ addressRouter.post("/address", checkLogin, (req, res) => {
 
 addressRouter.get("/address", checkLogin, (req, res) => {
   let user = req.user;
-  address.find({ usersAddress: user._id }).then((address) => {
+  address.find({ usersAddress: user._id })
+  .then((address) => {
     let arr = [];
     for (let t of address) {
       let { _id, houseName, city, postalCode } = t;
@@ -46,6 +47,32 @@ addressRouter.get("/address", checkLogin, (req, res) => {
     res.status(200).json({ address: arr });
   });
 });
+
+addressRouter.get("/display",(req, res)=>{
+  address.find()
+  .then(addr =>{
+    let arr = []
+    for (let t of addr) {
+      let { _id, houseName, city, postalCode, usersAddress} = t
+      user.findById(usersAddress)
+      .then(
+        (sevedUser)=>{
+        // console.log("saved", sevedUser)
+        let obj = {_id, houseName, city, postalCode,
+          user: {
+            _id: sevedUser._id,
+            name: sevedUser.name,
+            email: sevedUser.email,
+          }
+        }
+        arr.push(obj)
+      })
+    }
+    console.log(arr)
+    res.status(200).json({address:addr})
+
+  })
+})
 
 // to fetch all address - no login required ,
 //
