@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../secret.js');
 const user = mongoose.model("User");
 
-
 const checkLogin = (req, res, next) => {
     let {authorization} = req.headers
     if(!authorization){

@@ -16,7 +16,7 @@ addressRouter.post("/address", checkLogin, (req, res) => {
     houseName,
     city,
     postalCode,
-    usersAddress: req.user,
+    usersAddress: req.user._id
   });
   newAddress.save().then((result) => {
     res.status(200).json({ address: result });
@@ -36,11 +36,12 @@ addressRouter.get("/address", checkLogin, (req, res) => {
         city,
         postalCode,
         user: {
-          _id: user._id,
+          _id: user,
           name: user.name,
           email: user.email,
-        },
-      };
+        }
+      }
+      console.log(user)
       arr.push(obj);
     }
 
@@ -62,7 +63,7 @@ addressRouter.get("/display",(req, res)=>{
           user: {
             _id: sevedUser._id,
             name: sevedUser.name,
-            email: sevedUser.email,
+            email: sevedUser.email
           }
         }
         arr.push(obj)

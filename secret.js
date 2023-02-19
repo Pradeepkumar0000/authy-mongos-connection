@@ -1,8 +1,13 @@
 let secret = {
   mongourl:
-    "mongodb+srv://auth:Bakt7C4XL7PLdykK@auth.z3ketdq.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://authy:tHFoCFrJ1XVwTQ4h@auth.kabl5qr.mongodb.net/?retryWrites=true&w=majority",
 
-    jwtSecret:"pksklu"
-};
+    jwtSecret:"pksklu",
+    email:"pardeep9536757207@gmail.com",
+    password:"bxsglchwdacxndpk"
+}
 
 module.exports = secret;
+
+
+
